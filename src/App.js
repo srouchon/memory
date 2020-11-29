@@ -84,8 +84,8 @@ class App extends Component {
             onClick={this.handleCardClick}
           />        
         ))}
-        {won && <p>GAGNÉ !</p>}
-        <HallOfFame entries={FAKE_HOF}/>
+        {/* {won && <p>GAGNÉ !</p>} */}
+        {/* <HallOfFame entries={FAKE_HOF}/> */}
       </div>
     )
   }
