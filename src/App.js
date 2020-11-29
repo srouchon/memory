@@ -11,7 +11,6 @@ const SIDE = 6
 const SYMBOLS = '😀🎉💖🎩🐶🐱🦄🐬🌍🌛🌞💫🍎🍌🍓🍐🍟🍿'
 
 class App extends Component {
-  
   state = {
     cards: this.generateCards(),
     currentPair: [],
@@ -37,19 +36,24 @@ class App extends Component {
     if (currentPair.length < 2) {
       return indexMatched || index === currentPair[0] ? 'visible' : 'hidden'
     }
-    
     if (currentPair.includes(index)) {
       return indexMatched ? 'justMatched' : 'justMismatched'
     }
-  
     return indexMatched ? 'visible' : 'hidden'
   }
   
   // Arrow fx for binding
-  handleCardClick = card => {
-    console.log(card, 'clicked', this)
+  handleCardClick = index => {
+    const { currentPair } = this.state
+    if (currentPair.length === 2) {
+      return
+    }
+    if (currentPair.length === 0) {
+      this.setState({ currentPair: [index] })
+      return
+    }
+    this.handleNewPairClosedBy(index)
   }
-
   
   render() {
     const { cards, guesses, matchedCardIndices } = this.state
@@ -62,6 +66,7 @@ class App extends Component {
             card={card}
             feedback={this.getFeedbackForCard(index)}
             key={index}
+            index={index}
             onClick={this.handleCardClick}
           />        
         ))}
